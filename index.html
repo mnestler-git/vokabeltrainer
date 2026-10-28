@@ -250,10 +250,10 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwJOk26FUmELTYpO9ih1RdI
    ============================================================ */
 const DEFAULT_CONFIG = {
   minutes: 10,
-  sampleNames: true,
+  sampleNames: false,
   sampleWords: true,
   inactive: [],
-  students: ["Anna","Ben","Clara","David","Elias","Emma","Felix","Hannah","Jakob","Lena","Lukas","Marie","Noah","Paul","Sophie","Tobias","Valentina"],
+  students: [],   /* Namen stehen in der Google-Tabelle, Blatt "Namen" */
   units: [
     { title: "Unit 1 · In the classroom", words: [
       ["Lineal","ruler","📏"],["Bleistift","pencil","✏️"],["Radiergummi","rubber/eraser",""],
@@ -516,6 +516,7 @@ function showLogin(){
       <p class="lead">Tippe auf deinen Namen.</p>
     </section>
     ${!apiReady ? `<p class="note"><b>Noch nicht eingerichtet.</b> In der Datei index.html fehlt oben die Adresse des Google-Skripts (siehe Anleitung).</p>` : serverDown ? `<p class="note"><b>Keine Verbindung zum Speicher.</b> Ist das WLAN an? Lade die Seite neu, sobald es wieder geht.</p>` : ""}
+    ${apiReady && !serverDown && !cfg.students.length ? `<p class="note"><b>Noch keine Namen eingetragen.</b> Trag sie in der Google-Tabelle im Blatt „Namen“ ein oder im Lehrerbereich unter „Namen“.</p>` : ""}
     <div class="names">${cfg.students.map(n => {
       return `<button class="name" data-n="${esc(n)}"><span class="ini">${esc(n.trim().charAt(0).toUpperCase())}</span>
         <span><b>${esc(n)}</b></span></button>`;
@@ -1002,7 +1003,7 @@ function showTeacher(tab, sel){
       <textarea id="vtext" rows="16" spellcheck="false" autocapitalize="none" autocorrect="off">${esc(serialize(cfg.units))}</textarea></div>
       <p id="vinfo" class="muted small"></p>
       <div class="row"><button class="btn" id="vsave">Speichern</button><button class="btn ghost" id="vreset">Original wiederherstellen</button></div>
-      <p class="muted small">Gespeicherte Vokabeln gelten sofort auf allen iPads. Der Lernstand eines Wortes bleibt erhalten, solange das (erste) englische Wort gleich bleibt.</p></div>
+      <p class="muted small">Die Vokabeln stehen auch in deiner Google-Tabelle im Blatt „Vokabeln“ und lassen sich dort bearbeiten. Gespeicherte Vokabeln gelten sofort auf allen iPads. Der Lernstand eines Wortes bleibt erhalten, solange das (erste) englische Wort gleich bleibt.</p></div>
       <div class="card" style="margin-top:16px"><h3>Welche Units wird geübt?</h3>
       ${cfg.units.map((u, k) => `<label class="check"><input type="checkbox" id="u${k}" data-u="${esc(u.title)}" ${cfg.inactive.includes(u.title) ? "" : "checked"}> ${esc(u.title)} <span class="muted small">(${u.words.length} Wörter)</span></label>`).join("")}
       <p class="muted small" style="margin-top:6px">Gekonnte Wörter bleiben gespeichert, auch wenn eine Unit pausiert ist.</p></div>`;
@@ -1021,7 +1022,7 @@ function showTeacher(tab, sel){
   if (tab === "namen"){
     tb.innerHTML = `<div class="card stack"><div><label class="lbl" for="ntext">Namen der Klasse (einer pro Zeile)</label>
       <textarea id="ntext" rows="18" spellcheck="false">${esc(cfg.students.join("\n"))}</textarea></div>
-      <p class="muted small">Der Fortschritt hängt am Namen. Wenn du einen Namen änderst, beginnt das Kind neu.</p>
+      <p class="muted small">Du kannst die Namen auch direkt in deiner Google-Tabelle im Blatt „Namen“ ändern. Der Fortschritt hängt am Namen: Wenn du einen Namen änderst, beginnt das Kind neu und bekommt neue Geheimzeichen.</p>
       <div class="row"><button class="btn" id="nsave">Speichern</button><span id="ninfo" class="muted"></span></div></div>`;
     $("#nsave").onclick = () => { const names = [...new Set($("#ntext").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean))];
       if (!names.length) return;
