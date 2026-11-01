@@ -401,16 +401,31 @@ function pickVoice(){
   const mine = saved && (vs.find(v => voiceId(v) === saved) || vs.find(v => v.name === saved));
   return mine || vs.slice().sort((a, b) => voiceScore(b) - voiceScore(a))[0];
 }
+/* Sprechen. Safari am iPad rechnet die Geschwindigkeit anders um, darum:
+   normal = 0.8; langsam = jedes Wort einzeln und sehr langsam (dadurch kleine Pausen);
+   Buchstaben = jeder Buchstabe einzeln. */
+function utter(text, rate, v){
+  const u = new SpeechSynthesisUtterance(text);
+  if (v){ u.voice = v; u.lang = v.lang; } else u.lang = "en-GB";
+  u.rate = rate; u.pitch = 1;
+  speechSynthesis.speak(u);
+}
 function speak(text, slow, voice){
   if (!canSpeak) return;
   try {
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
     const v = voice || pickVoice();
-    if (v){ u.voice = v; u.lang = v.lang; } else u.lang = "en-GB";
-    u.rate = slow ? 0.5 : 0.82;
-    u.pitch = 1;
-    speechSynthesis.speak(u);
+    if (!slow) return utter(text, 0.8, v);
+    String(text).split(/\s+/).filter(Boolean).forEach(word => utter(word, 0.3, v));
+  } catch(e){}
+}
+function spellOut(text){
+  if (!canSpeak) return;
+  try {
+    speechSynthesis.cancel();
+    const v = pickVoice();
+    utter(text, 0.6, v);
+    [...String(text)].forEach(ch => { if (/\S/.test(ch)) utter(/[a-z]/i.test(ch) ? ch.toUpperCase() : ch, 0.55, v); });
   } catch(e){}
 }
 if (canSpeak) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch(e){} }
@@ -808,7 +823,7 @@ function gWrite(mode){
     const w = list[i]; dots(res, list.length);
     const top = listen
       ? `<div class="prompt"><button class="btn big-say" id="say" type="button">${IC.speaker}Anhören</button>
-           <div class="row center"><button class="link" id="slow" type="button">langsam</button><button class="link" id="hint" type="button">Deutsch zeigen</button></div>
+           <div class="row center"><button class="link" id="slow" type="button">🐢 langsam</button><button class="link" id="letters" type="button">🔤 Buchstaben</button><button class="link" id="hint" type="button">Deutsch zeigen</button></div>
            <p class="de" id="hintTxt" hidden>${w.emoji?esc(w.emoji)+" ":""}${esc(w.de)}</p>${isReview(w)?`<span class="chip plain">Wiederholung</span>`:""}</div>`
       : promptHTML(w);
     b.innerHTML = `${top}
@@ -818,10 +833,11 @@ function gWrite(mode){
       <div class="fb" id="fb" aria-live="polite"></div>
       <div class="row center"><button class="link" id="dunno" type="button">Weiß ich nicht</button></div>`;
     const ans = $("#ans"), fb = $("#fb");
-    let phase = "answer";
+    let phase = "answer", spelled = false;
     if (listen){
       $("#say").onclick = () => { speak(firstEn(w)); ans.focus(); };
-      $("#slow").onclick = () => speak(firstEn(w), true);
+      $("#slow").onclick = () => { speak(firstEn(w), true); ans.focus(); };
+      $("#letters").onclick = () => { spelled = true; spellOut(firstEn(w)); ans.focus(); };
       $("#hint").onclick = () => { $("#hintTxt").hidden = false; $("#hint").hidden = true; };
       if (first) speak(firstEn(w)); else later(() => speak(firstEn(w)), 350);
     }
@@ -840,9 +856,10 @@ function gWrite(mode){
       if (phase === "answer"){
         if (accept(v, w.en)){
           const wasReview = isReview(w);
-          record(w, true, true); res.push({w, ok:true}); phase = "done";
+          /* nach dem Buchstabieren zählt es nur wie "erkannt" (½ Stern), nicht wie selbst geschrieben */
+          record(w, true, !spelled); res.push({w, ok:true}); phase = "done";
           ans.classList.add("ok"); ans.readOnly = true;
-          fb.className = "fb good"; fb.textContent = wasReview ? "Richtig – sitzt noch!" : "Richtig!";
+          fb.className = "fb good"; fb.textContent = spelled ? "Richtig! Nächstes Mal schaffst du es ohne Buchstaben." : wasReview ? "Richtig – sitzt noch!" : "Richtig!";
           speak(firstEn(w));
           later(() => { i++; step(); }, 1000);
         } else wrong(nearMiss(v, w.en));
