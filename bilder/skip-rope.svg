@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind springt Seil">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#FFF0E0"></rect>
+<ellipse cx="120" cy="212" rx="62" ry="7" fill="#E3C9A8"></ellipse>
+<path d="M58 134 C28 8 212 8 182 134" fill="none" stroke="#D64545" stroke-width="5" stroke-linecap="round"></path>
+<path d="M58 134 L62 148 M182 134 L178 148" stroke="#2F2A4A" stroke-width="9" stroke-linecap="round"></path>
+<path d="M104 112 L62 142 M136 112 L178 142" stroke="#E8A87C" stroke-width="11" stroke-linecap="round"></path>
+<path d="M110 156 L105 196 M130 156 L135 196" stroke="#3C7DD9" stroke-width="12" stroke-linecap="round"></path>
+<rect x="99" y="102" width="42" height="58" rx="14" fill="#17A398"></rect>
+<circle cx="120" cy="82" r="24" fill="#E8A87C"></circle>
+<path d="M96 80 a24 24 0 0 1 48 0 q-24 -13 -48 0z" fill="#5B3A29"></path>
+<circle cx="111" cy="86" r="3" fill="#2B2B2B"></circle>
+<circle cx="129" cy="86" r="3" fill="#2B2B2B"></circle>
+<path d="M112 95 q8 6 16 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+</svg>

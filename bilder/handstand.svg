@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind macht einen Handstand">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#FFF3D6"></rect>
+<path d="M30 210 H210" stroke="#3F9C63" stroke-width="6" stroke-linecap="round"></path>
+<path d="M110 90 L104 38 M130 90 L136 38" stroke="#3C7DD9" stroke-width="13" stroke-linecap="round"></path>
+<path d="M104 32 H92 M136 32 H148" stroke="#D64545" stroke-width="11" stroke-linecap="round"></path>
+<rect x="100" y="82" width="40" height="64" rx="13" fill="#FF8C42"></rect>
+<path d="M105 134 L84 204 M135 134 L156 204" stroke="#E8A87C" stroke-width="11" stroke-linecap="round"></path>
+<circle cx="120" cy="164" r="22" fill="#E8A87C"></circle>
+<path d="M98 166 a22 22 0 0 0 44 0 q-22 11 -44 0z" fill="#5B3A29"></path>
+<circle cx="112" cy="162" r="3" fill="#2B2B2B"></circle>
+<circle cx="128" cy="162" r="3" fill="#2B2B2B"></circle>
+<path d="M113 153 q7 -6 14 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+</svg>

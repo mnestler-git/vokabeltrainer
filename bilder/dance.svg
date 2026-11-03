@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind tanzt zu Musik">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#F4E9FB"></rect>
+<path d="M103 94 L66 60 M134 94 L172 58" stroke="#E8A87C" stroke-width="11" stroke-linecap="round"></path>
+<path d="M106 150 L96 206 M130 150 L164 192" stroke="#E8A87C" stroke-width="12" stroke-linecap="round"></path>
+<path d="M100 84 H136 L160 156 H78 Z" fill="#8E44AD" stroke="#8E44AD" stroke-width="6" stroke-linejoin="round"></path>
+<circle cx="118" cy="62" r="24" fill="#E8A87C"></circle>
+<path d="M94 60 a24 24 0 0 1 48 0 q-24 -13 -48 0z" fill="#5B3A29"></path>
+<circle cx="109" cy="66" r="3" fill="#2B2B2B"></circle>
+<circle cx="127" cy="66" r="3" fill="#2B2B2B"></circle>
+<path d="M110 75 q8 6 16 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+<ellipse cx="190" cy="126" rx="10" ry="7.5" fill="#2F2A4A"></ellipse>
+<path d="M199 126 V90 Q206 100 214 102" fill="none" stroke="#2F2A4A" stroke-width="4" stroke-linecap="round"></path>
+<ellipse cx="42" cy="136" rx="9" ry="7" fill="#2F2A4A"></ellipse>
+<path d="M50 136 V104 Q56 112 64 114" fill="none" stroke="#2F2A4A" stroke-width="4" stroke-linecap="round"></path>
+</svg>

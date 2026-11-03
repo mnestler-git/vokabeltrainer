@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind reitet auf einem Pferd">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#EAF6E3"></rect>
+<path d="M48 125 Q24 135 32 176" fill="none" stroke="#5B3A29" stroke-width="10" stroke-linecap="round"></path>
+<path d="M70 150 V206 M90 156 V206 M130 156 V206 M150 150 V206" stroke="#A9683C" stroke-width="13" stroke-linecap="round"></path>
+<ellipse cx="105" cy="135" rx="58" ry="30" fill="#A9683C"></ellipse>
+<path d="M142 122 L172 76 L196 88 L166 148 Z" fill="#A9683C"></path>
+<path d="M170 70 L212 88 Q219 98 208 103 L178 98 Z" fill="#A9683C"></path>
+<path d="M176 73 L178 56 L189 72 Z" fill="#A9683C"></path>
+<circle cx="188" cy="84" r="3.5" fill="#2B2B2B"></circle>
+<path d="M170 72 L142 116" fill="none" stroke="#5B3A29" stroke-width="8" stroke-linecap="round"></path>
+<path d="M82 108 Q104 100 126 108 L124 122 H84 Z" fill="#2F2A4A"></path>
+<rect x="90" y="62" width="28" height="48" rx="12" fill="#D64545"></rect>
+<path d="M104 106 L112 150" stroke="#3C7DD9" stroke-width="12" stroke-linecap="round"></path>
+<path d="M110 76 L150 86" stroke="#E8A87C" stroke-width="9" stroke-linecap="round"></path>
+<path d="M150 86 L192 94" stroke="#2B2B2B" stroke-width="2.5"></path>
+<circle cx="104" cy="44" r="18" fill="#E8A87C"></circle>
+<path d="M86 42 a18 18 0 0 1 36 0 Z" fill="#2F2A4A"></path>
+<circle cx="110" cy="47" r="2.5" fill="#2B2B2B"></circle>
+</svg>

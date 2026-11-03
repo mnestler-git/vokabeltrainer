@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind liest ein Buch">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#FFF3D6"></rect>
+<rect x="82" y="98" width="76" height="70" rx="22" fill="#3C7DD9"></rect>
+<circle cx="120" cy="70" r="30" fill="#E8A87C"></circle>
+<path d="M90 68 a30 30 0 0 1 60 0 q-30 -16 -60 0z" fill="#5B3A29"></path>
+<path d="M106 76 q5 -5 10 0 M124 76 q5 -5 10 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+<path d="M112 87 q8 6 16 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+<path d="M120 138 C100 122 62 122 40 132 V198 C62 188 100 188 120 204 Z" fill="#FFFFFF" stroke="#C0392B" stroke-width="5" stroke-linejoin="round"></path>
+<path d="M120 138 C140 122 178 122 200 132 V198 C178 188 140 188 120 204 Z" fill="#FFFFFF" stroke="#C0392B" stroke-width="5" stroke-linejoin="round"></path>
+<path d="M56 147 q24 -7 48 2 M56 162 q24 -7 48 2 M56 177 q24 -7 48 2 M136 149 q24 -9 48 -2 M136 164 q24 -9 48 -2 M136 179 q24 -9 48 -2" fill="none" stroke="#767676" stroke-width="3" stroke-linecap="round"></path>
+</svg>

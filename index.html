@@ -160,6 +160,11 @@ p{margin:0}
 .arow.recording{background:var(--bad-soft);border-radius:12px}
 .btn.rec{background:var(--bad);color:#fff;box-shadow:none}
 @keyframes pulse{50%{opacity:.4}}
+.wimg{display:block;object-fit:contain;-webkit-user-drag:none;user-select:none}
+.pic .wimg{width:clamp(110px,26vw,160px);height:clamp(110px,26vw,160px);margin:0 auto}
+.wp .wimg{width:36px;height:36px;margin:0 auto}
+.mpic .wimg{width:min(64px,80%);height:auto;aspect-ratio:1;margin:0 auto}
+.tpic .wimg{display:inline-block;width:44px;height:44px;vertical-align:middle}
 .sync{font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap}
 .sync.off{color:var(--warn)} .sync.ok{color:var(--good)}
 .codecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -507,6 +512,13 @@ function words(all){
   }
   return out;
 }
+/* Bild eines Wortes: Emoji oder Bilddatei (z. B. bilder/swim.svg oder https://…) */
+const isImgRef = v => /^(https?:\/\/|data:image\/)/i.test(v) || /^[\w\-.\/]+\.(svg|png|jpe?g|gif|webp)$/i.test(v);
+function pic(w){
+  const v = String(w.emoji || "").trim();
+  if (!v) return "";
+  return isImgRef(v) ? `<img class="wimg" src="${esc(v)}" alt="" loading="lazy" draggable="false">` : esc(v);
+}
 function getStu(name){ return P[name] || (P[name] = {w:{}, sessions:[]}); }
 const st = (stu, w) => (stu && stu.w[w.key]) || {l:0, d:0, r:0, f:0};
 function stats(stu, list){
@@ -716,7 +728,7 @@ function wordRows(who, filter){
     if (filter==="mastered" && s.l<3) continue;
     if (w.unit !== unit){ unit = w.unit; h += `<p class="unit-h">${esc(unit)}</p>`; }
     count++;
-    h += `<div class="wrow"><span class="wp">${esc(w.emoji)}</span><span class="wt"><b>${esc(w.de)}</b><span>${esc(showEn(w))}</span></span>${statusHTML(s)}</div>`;
+    h += `<div class="wrow"><span class="wp">${pic(w)}</span><span class="wt"><b>${esc(w.de)}</b><span>${esc(showEn(w))}</span></span>${statusHTML(s)}</div>`;
   }
   return count ? h : `<p class="muted" style="padding:18px 0">${filter==="mastered"?"Noch keine Wörter gekonnt – das kommt!":"Hier ist gerade nichts."}</p>`;
 }
@@ -753,7 +765,7 @@ function dots(res, total){
   $("#gcount").textContent = `${Math.min(res.length+1,total)} / ${total}`;
 }
 function promptHTML(w){
-  return `<div class="prompt">${w.emoji?`<span class="pic" aria-hidden="true">${esc(w.emoji)}</span>`:""}<p class="de">${esc(w.de)}</p>${isReview(w)?`<span class="chip plain">Wiederholung</span>`:""}</div>`;
+  return `<div class="prompt">${w.emoji?`<span class="pic" aria-hidden="true">${pic(w)}</span>`:""}<p class="de">${esc(w.de)}</p>${isReview(w)?`<span class="chip plain">Wiederholung</span>`:""}</div>`;
 }
 function noWords(){ const b = shell("Hoppla"); b.innerHTML = `<p class="note">Für dieses Spiel sind zu wenige Vokabeln eingetragen.</p>`; }
 function finish(title, res, again, mastBefore){
@@ -781,7 +793,7 @@ function gFlash(){
     const reveal = () => {
       const c = $("#card"); if (c.classList.contains("open")) return;
       c.classList.add("open"); c.removeAttribute("role");
-      c.innerHTML = `${w.emoji?`<span class="pic">${esc(w.emoji)}</span>`:""}<p class="muted">${esc(w.de)}</p><p class="en">${esc(showEn(w))}</p>${sayBtn()}`;
+      c.innerHTML = `${w.emoji?`<span class="pic">${pic(w)}</span>`:""}<p class="muted">${esc(w.de)}</p><p class="en">${esc(showEn(w))}</p>${sayBtn()}`;
       sayWord(w);
       if ($("#sayEn")) $("#sayEn").onclick = e => { e.stopPropagation(); sayWord(w); };
       $("#acts").innerHTML = `<button class="btn good" id="yes">✓ Gewusst</button><button class="btn bad" id="no">✗ Noch nicht</button>`;
@@ -877,7 +889,7 @@ function gWrite(mode){
     const top = listen
       ? `<div class="prompt"><button class="btn big-say" id="say" type="button">${IC.speaker}Anhören</button>
            <div class="row center"><button class="link" id="hint" type="button">Deutsch zeigen</button></div>
-           <p class="de" id="hintTxt" hidden>${w.emoji?esc(w.emoji)+" ":""}${esc(w.de)}</p>${isReview(w)?`<span class="chip plain">Wiederholung</span>`:""}</div>`
+           <p class="de" id="hintTxt" hidden>${w.emoji?`<span class="pic">${pic(w)}</span><br>`:""}${esc(w.de)}</p>${isReview(w)?`<span class="chip plain">Wiederholung</span>`:""}</div>`
       : promptHTML(w);
     b.innerHTML = `${top}
       <form class="answer" id="f" autocomplete="off">
@@ -944,7 +956,7 @@ function gTorch(){
   board.addEventListener("pointermove", e => light(e.clientX, e.clientY));
   board.addEventListener("pointerdown", e => light(e.clientX, e.clientY));
   const task = () => { const w = order[r]; dots(res, order.length);
-    $("#task").innerHTML = `Finde: ${w.emoji?esc(w.emoji)+" ":""}<b>${esc(w.de)}</b>`; };
+    $("#task").innerHTML = `Finde: ${w.emoji?`<span class="tpic">${pic(w)}</span> `:""}<b>${esc(w.de)}</b>`; };
   b.querySelectorAll(".t-word").forEach(btn => {
     btn.addEventListener("focus", () => { const rc = btn.getBoundingClientRect(); light(rc.left+rc.width/2, rc.top+rc.height/2); });
     btn.onclick = () => {
@@ -972,7 +984,7 @@ function gMemory(){
   b.innerHTML = `<p class="center muted" style="margin-bottom:14px">Finde zu jedem deutschen Wort das englische.</p>
     <div class="mem-grid">${cards.map((c, k) => `<button class="mem" data-i="${k}" aria-label="Karte ${k+1}"></button>`).join("")}</div>`;
   $("#dots").innerHTML = ""; const cnt = () => $("#gcount").textContent = `Züge: ${moves}`; cnt();
-  const face = c => c.side === "de" ? `${c.w.emoji?`<span class="mpic">${esc(c.w.emoji)}</span>`:""}<span>${esc(c.w.de)}</span>` : `<span>${esc(firstEn(c.w))}</span>`;
+  const face = c => c.side === "de" ? `${c.w.emoji?`<span class="mpic">${pic(c.w)}</span>`:""}<span>${esc(c.w.de)}</span>` : `<span>${esc(firstEn(c.w))}</span>`;
   b.querySelectorAll(".mem").forEach(el => el.onclick = () => {
     const c = cards[+el.dataset.i];
     if (lock || el.classList.contains("up") || el.classList.contains("done")) return;
@@ -1120,7 +1132,7 @@ function showTeacher(tab, sel){
       <div class="row" style="margin-top:10px"><p class="muted small">Tippe auf einen Namen für die Wortliste.</p><span class="spacer"></span><button class="btn ghost sm" id="reload">Aktualisieren</button></div></div>
       <div id="detail"></div>
       <div class="card" style="margin-top:16px"><h3>Schwierigste Wörter der Klasse</h3>
-        ${hard.length ? `<div class="wlist">${hard.map(h => `<div class="wrow"><span class="wp">${esc(h.w.emoji)}</span><span class="wt"><b>${esc(h.w.de)}</b><span>${esc(showEn(h.w))}</span></span><span class="muted small">${h.f}× falsch</span></div>`).join("")}</div>`
+        ${hard.length ? `<div class="wlist">${hard.map(h => `<div class="wrow"><span class="wp">${pic(h.w)}</span><span class="wt"><b>${esc(h.w.de)}</b><span>${esc(showEn(h.w))}</span></span><span class="muted small">${h.f}× falsch</span></div>`).join("")}</div>`
           : `<p class="muted" style="margin-top:8px">Noch keine Fehler gesammelt.</p>`}</div>`;
     tb.querySelectorAll("tr.click").forEach(tr => tr.onclick = () => showTeacher("klasse", tr.dataset.n));
     $("#reload").onclick = () => teacherLoad(teacherPin).then(() => showTeacher("klasse", sel)).catch(e => { $("#reload").textContent = errText(e); });
@@ -1170,7 +1182,7 @@ function showTeacher(tab, sel){
     for (const w of all){
       if (w.unit !== unit){ unit = w.unit; rows += `<p class="unit-h">${esc(unit)}</p>`; }
       const has = !!(cfg.audio || {})[w.key];
-      rows += `<div class="arow" data-k="${esc(w.key)}"><span class="wp">${esc(w.emoji)}</span>
+      rows += `<div class="arow" data-k="${esc(w.key)}"><span class="wp">${pic(w)}</span>
         <span class="wt"><b>${esc(firstEn(w))}</b><span class="muted small">${esc(w.de)}</span></span>
         <span class="astate ${has ? "ok" : ""}">${has ? "✓ aufgenommen" : "noch keine"}</span>
         <span class="row abtns"><button class="btn sm rec" type="button">● ${has ? "Neu" : "Aufnehmen"}</button>

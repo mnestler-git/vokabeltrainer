@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Fußball auf dem Rasen">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#DDF3D5"></rect>
+<ellipse cx="120" cy="204" rx="70" ry="10" fill="#8CC97A"></ellipse>
+<circle cx="120" cy="125" r="72" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="4"></circle>
+<path d="M120 99 L144.7 117 L135.3 146 L104.7 146 L95.3 117 Z" fill="#2B2B2B"></path>
+<g>
+<path d="M120 99 V75 M95.4 57.3 L120 75 L144.6 57.3 A72 72 0 0 0 95.4 57.3 Z" fill="#2B2B2B" stroke="#2B2B2B" stroke-width="3"></path>
+</g>
+<g transform="rotate(72 120 125)">
+<path d="M120 99 V75 M95.4 57.3 L120 75 L144.6 57.3 A72 72 0 0 0 95.4 57.3 Z" fill="#2B2B2B" stroke="#2B2B2B" stroke-width="3"></path>
+</g>
+<g transform="rotate(144 120 125)">
+<path d="M120 99 V75 M95.4 57.3 L120 75 L144.6 57.3 A72 72 0 0 0 95.4 57.3 Z" fill="#2B2B2B" stroke="#2B2B2B" stroke-width="3"></path>
+</g>
+<g transform="rotate(216 120 125)">
+<path d="M120 99 V75 M95.4 57.3 L120 75 L144.6 57.3 A72 72 0 0 0 95.4 57.3 Z" fill="#2B2B2B" stroke="#2B2B2B" stroke-width="3"></path>
+</g>
+<g transform="rotate(288 120 125)">
+<path d="M120 99 V75 M95.4 57.3 L120 75 L144.6 57.3 A72 72 0 0 0 95.4 57.3 Z" fill="#2B2B2B" stroke="#2B2B2B" stroke-width="3"></path>
+</g>
+</svg>

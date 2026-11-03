@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Baseballschläger und Baseball">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#E8F1FB"></rect>
+<g transform="translate(160,92) rotate(45)">
+<path d="M-15 -66 Q0 -84 15 -66 L6 52 H-6 Z" fill="#B9773F"></path>
+<ellipse cx="0" cy="56" rx="11" ry="6" fill="#5B3A29"></ellipse>
+</g>
+<circle cx="84" cy="158" r="46" fill="#FFFFFF" stroke="#2F2A4A" stroke-width="4"></circle>
+<path d="M58 121 Q78 158 58 195 M110 121 Q90 158 110 195" fill="none" stroke="#D64545" stroke-width="4"></path>
+<path d="M63 131 l9 -4 M68 145 l10 -2 M69 160 h10 M67 174 l10 3 M62 187 l9 4 M105 131 l-9 -4 M100 145 l-10 -2 M99 160 h-10 M101 174 l-10 3 M106 187 l-9 4" stroke="#D64545" stroke-width="3" stroke-linecap="round"></path>
+</svg>

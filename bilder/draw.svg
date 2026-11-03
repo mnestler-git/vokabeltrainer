@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Bleistift zeichnet ein Haus auf Papier">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#FDECEF"></rect>
+<rect x="36" y="32" width="136" height="176" fill="#FFFFFF" stroke="#767676" stroke-width="3"></rect>
+<circle cx="146" cy="60" r="12" fill="none" stroke="#E08A00" stroke-width="4"></circle>
+<path d="M62 118 L98 84 L134 118 M70 112 V158 H126 V112 M90 158 V132 H106 V158" fill="none" stroke="#2B2B2B" stroke-width="4" stroke-linejoin="round"></path>
+<path d="M56 182 Q90 164 127 176" fill="none" stroke="#3F9C63" stroke-width="4" stroke-linecap="round"></path>
+<g transform="translate(160,130) rotate(40)">
+<rect x="-11" y="-70" width="22" height="95" fill="#F7C948"></rect>
+<rect x="-11" y="-85" width="22" height="15" fill="#FF8C7A"></rect>
+<path d="M-11 25 H11 L0 54 Z" fill="#F0D2A8"></path>
+<path d="M-4 44 H4 L0 54 Z" fill="#2B2B2B"></path>
+</g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind schwimmt im Wasser">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#E4F4FB"></rect>
+<circle cx="190" cy="50" r="20" fill="#F7C948"></circle>
+<path d="M118 150 Q84 78 48 112" fill="none" stroke="#E8A87C" stroke-width="15" stroke-linecap="round"></path>
+<circle cx="146" cy="116" r="30" fill="#E8A87C"></circle>
+<path d="M116 114 a30 30 0 0 1 60 0 q-30 -14 -60 0z" fill="#D64545"></path>
+<circle cx="136" cy="122" r="3.5" fill="#2B2B2B"></circle>
+<circle cx="158" cy="122" r="3.5" fill="#2B2B2B"></circle>
+<path d="M139 133 q8 6 16 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+<path d="M10 145 q27.5 -16 55 0 t55 0 t55 0 t55 0 V210 a20 20 0 0 1 -20 20 H30 a20 20 0 0 1 -20 -20 Z" fill="#4AA8DE"></path>
+<path d="M30 178 q15 -9 30 0 t30 0 t30 0 M120 204 q15 -9 30 0 t30 0 t30 0" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"></path>
+</svg>

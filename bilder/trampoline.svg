@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Kind springt auf einem Trampolin">
+<rect x="10" y="10" width="220" height="220" rx="20" fill="#E7F7F4"></rect>
+<path d="M56 190 L46 220 M184 190 L194 220 M120 200 V220" stroke="#2F2A4A" stroke-width="7" stroke-linecap="round"></path>
+<ellipse cx="120" cy="186" rx="88" ry="18" fill="#2F2A4A"></ellipse>
+<ellipse cx="120" cy="184" rx="74" ry="11" fill="#17A398"></ellipse>
+<path d="M62 118 V148 M178 118 V148" stroke="#767676" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 8"></path>
+<path d="M104 80 L72 46 M136 80 L168 46" stroke="#E8A87C" stroke-width="11" stroke-linecap="round"></path>
+<path d="M110 118 L94 146 M130 118 L146 146" stroke="#3C7DD9" stroke-width="12" stroke-linecap="round"></path>
+<rect x="99" y="70" width="42" height="54" rx="14" fill="#FF8C42"></rect>
+<circle cx="120" cy="48" r="23" fill="#E8A87C"></circle>
+<path d="M97 46 a23 23 0 0 1 46 0 q-23 -12 -46 0z" fill="#5B3A29"></path>
+<circle cx="111" cy="52" r="3" fill="#2B2B2B"></circle>
+<circle cx="129" cy="52" r="3" fill="#2B2B2B"></circle>
+<path d="M112 60 q8 7 16 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"></path>
+</svg>
