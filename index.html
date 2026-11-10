@@ -202,22 +202,61 @@ code{font-family:var(--f-mono);font-size:.88em;background:var(--sun-soft);paddin
 .t-word{position:absolute;transform:translate(-50%,-50%) rotate(var(--rot,0deg));background:none;border:0;color:var(--torch-word);font-family:var(--f-display);font-weight:700;font-size:clamp(1.1rem,3.4vw,1.55rem);white-space:nowrap;padding:12px;z-index:1;cursor:pointer}
 .t-word.found{z-index:3;color:var(--torch-found);text-shadow:0 0 18px rgba(255,205,69,.75)}
 .t-word.nope{color:#FF9B87}
-.t-dark{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,235,160,.22) 0,rgba(255,235,160,.08) 60px,rgba(10,13,28,.985) 115px)}
+.t-dark{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,235,160,.22) 0,rgba(255,235,160,.08) calc(var(--rad,115px) * .55),#0A0D1C var(--rad,115px))}
+.torch.empty .t-dark{background:#0A0D1C}
+.t-word{animation:drift var(--d,7s) ease-in-out infinite alternate}
+.t-word.found{animation:none;transform:translate(-50%,-50%) scale(1.15)}
+@keyframes drift{from{transform:translate(-50%,-50%) translate(calc(var(--mx) * -1),calc(var(--my) * -1)) rotate(var(--rot,0deg))}to{transform:translate(-50%,-50%) translate(var(--mx),var(--my)) rotate(calc(var(--rot,0deg) * -1))}}
+.stars-sky{position:absolute;inset:0;z-index:3;pointer-events:none;background-image:radial-gradient(2px 2px at 12% 18%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 34% 8%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 58% 22%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 80% 12%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 22% 44%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 68% 52%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 90% 70%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 8% 80%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 46% 88%,#fff 50%,transparent 51%);opacity:.55;animation:twinkle 3s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.25}}
+.t-moon{position:absolute;right:16px;top:12px;width:62px;height:62px;z-index:3;pointer-events:none}
+.torch-top{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.torch-top .torch-task{margin:0}
+.battery{position:relative;width:110px;height:34px;border:var(--ol);border-radius:9px;background:var(--cream)}
+.battery .b-cap{position:absolute;right:-9px;top:8px;width:6px;height:12px;background:var(--ink);border-radius:0 3px 3px 0}
+.battery .b-fill{position:absolute;left:3px;top:3px;bottom:3px;border-radius:5px;background:#5FD39A;transition:width .3s,background .3s;max-width:calc(100% - 6px)}
+.battery .b-fill.mid{background:var(--sun)} .battery .b-fill.low{background:#FF8E78;animation:pulse .8s infinite}
+.battery .b-pct{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+
+/* effects */
+.fx{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.conf{position:absolute;width:11px;height:15px;margin:-7px 0 0 -5px;border:2px solid var(--ink);border-radius:3px;animation:conf .95s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes conf{to{transform:translate(var(--dx),calc(var(--dy) + 120px)) rotate(var(--r));opacity:0}}
+.burst{position:absolute;transform:translate(-50%,-50%);font-family:var(--f-display);font-weight:700;font-size:clamp(1.4rem,4vw,2rem);white-space:nowrap;padding:4px 16px;border:var(--ol);border-radius:99px;background:var(--sun);color:var(--ink);box-shadow:0 4px 0 var(--ink);animation:burst 1s ease-out forwards}
+.burst.bad{background:#FFB1A1}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.3)}25%{transform:translate(-50%,-70%) scale(1.15)}60%{transform:translate(-50%,-95%) scale(1);opacity:1}100%{transform:translate(-50%,-130%) scale(.95);opacity:0}}
+.fb.big{font-family:var(--f-display);font-size:clamp(1.5rem,4.5vw,2rem);font-weight:700}
+.fb.big .muted{font-size:.75em;font-weight:500}
+.btn.snd{width:42px;padding:0}
+.btn.snd[aria-pressed="false"]{background:var(--line)}
+.flip-wrap{perspective:1200px}
+.flip.turning{animation:turn1 .18s ease-in forwards}
+.flip.open{animation:turn2 .32s cubic-bezier(.3,1.5,.6,1)}
+@keyframes turn1{to{transform:rotateY(90deg)}}
+@keyframes turn2{from{transform:rotateY(-90deg)}to{transform:none}}
+.slot.bounce{animation:bounceIn .3s cubic-bezier(.3,1.8,.6,1)}
+@keyframes bounceIn{0%{transform:translateY(-14px) scale(1.3)}100%{transform:none}}
+.slots.won .slot{border-color:var(--good);color:var(--good);animation:wave .6s ease-in-out}
+.slots.won .slot:nth-child(2n){animation-delay:.08s}.slots.won .slot:nth-child(3n){animation-delay:.16s}
+@keyframes wave{50%{transform:translateY(-10px)}}
+.lt.bad-flash{background:#FFB1A1}
+.big-prompt .pic{font-size:clamp(4rem,10vh,6rem)}
+.big-prompt .pic .wimg{width:clamp(130px,24vh,230px);height:clamp(130px,24vh,230px)}
 
 /* balloons */
-.sky-area{position:relative;height:clamp(340px,52vh,480px);border-radius:26px;border:var(--ol);box-shadow:0 6px 0 var(--ink);overflow:hidden;background:linear-gradient(#BFE6FF,#E6F6FF 75%,#FFF9EC);max-width:720px;margin:0 auto}
+.sky-area{position:relative;height:clamp(330px,50vh,500px);border-radius:26px;border:var(--ol);box-shadow:0 6px 0 var(--ink);overflow:hidden;background:linear-gradient(#BFE6FF,#E6F6FF 75%,#FFF9EC);max-width:720px;margin:0 auto}
 .cloud{position:absolute;width:110px;height:34px;background:#fff;border:3px solid var(--ink);border-radius:99px;opacity:.95}
 .cloud::before{content:"";position:absolute;width:48px;height:44px;left:18px;top:-24px;background:#fff;border:3px solid var(--ink);border-bottom:0;border-radius:50% 50% 0 0}
 .cloud.c1{left:6%;top:14%} .cloud.c2{right:8%;top:32%;transform:scale(.8)} .cloud.c3{left:42%;top:62%;transform:scale(.65);opacity:.7}
-.balloon{position:absolute;top:58%;width:min(23%,150px);transform:translateX(-50%);background:none;border:0;padding:0;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;animation:rise var(--dur) linear var(--delay) both;z-index:2}
+.balloon{position:absolute;top:58%;transform:translateX(-50%);background:none;border:0;padding:0;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;animation:rise var(--dur) linear var(--delay) both;z-index:2}
 .b-body{display:grid;place-items:center;width:100%;aspect-ratio:5/6;background:var(--c);border:var(--ol);border-radius:50% 50% 47% 47% / 56% 56% 44% 44%;box-shadow:inset -10px -12px 0 rgba(27,36,69,.12);padding:10px 8px;animation:sway 2.4s ease-in-out infinite alternate;position:relative}
 .b-body::before{content:"";position:absolute;left:20%;top:14%;width:16%;height:22%;border-radius:50%;background:rgba(255,255,255,.65);transform:rotate(25deg)}
-.b-txt{font-family:var(--f-display);font-weight:600;font-size:clamp(.82rem,2.4vw,1.15rem);line-height:1.1;color:var(--ink);overflow-wrap:anywhere;position:relative}
+.b-txt{font-family:var(--f-display);font-weight:600;font-size:clamp(.72rem,1.9vw,1.05rem);line-height:1.1;color:var(--ink);overflow-wrap:anywhere;position:relative}
 .b-knot{width:14px;height:10px;background:var(--c);border:3px solid var(--ink);border-top:0;border-radius:0 0 6px 6px;margin-top:-3px}
 .b-string{width:3px;height:56px;background:var(--ink);border-radius:2px;opacity:.75}
-.balloon.miss .b-body{filter:grayscale(1);opacity:.45;animation:shake .35s}
-.balloon.popped{animation-play-state:paused}
-.balloon.popped .b-body{animation:popb .35s ease-out forwards}
+.balloon.popped,.balloon.miss{animation-play-state:paused;pointer-events:none}
+.balloon.miss .b-knot,.balloon.miss .b-string{opacity:0}
+.balloon.popped .b-body,.balloon.miss .b-body{animation:popb .3s ease-out forwards}
 .balloon.popped .b-knot,.balloon.popped .b-string{opacity:0;transition:opacity .2s}
 .balloon.gone{animation-play-state:paused;opacity:.25;transition:opacity .3s}
 .balloon.escaped{opacity:0}
@@ -227,13 +266,15 @@ code{font-family:var(--f-mono);font-size:.88em;background:var(--sun-soft);paddin
 @media (prefers-reduced-motion:reduce){.balloon{top:30%}}
 
 /* memory */
-.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:660px;margin:0 auto}
-@media (max-width:520px){.mem-grid{grid-template-columns:repeat(3,1fr)}}
+.mem-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:780px;margin:0 auto}
+@media (max-width:600px){.mem-grid{grid-template-columns:repeat(4,1fr);gap:8px}}
+@media (min-aspect-ratio:1/1){.mem-grid .mem{aspect-ratio:5/4}.mem .mpic .wimg{width:auto;height:clamp(36px,7vh,60px)}}
 .mem{aspect-ratio:3/4;max-width:100%;border-radius:18px;border:var(--ol);background-color:var(--grape);background-image:radial-gradient(circle,rgba(255,255,255,.35) 3px,transparent 3.5px);background-size:22px 22px;box-shadow:0 5px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:1.08rem;line-height:1.15;overflow-wrap:anywhere;text-align:center;touch-action:manipulation}
 .mem.up{background:var(--card);color:var(--ink);animation:pop .2s}
 .mem.up.en-side{color:var(--grape-deep)}
 .mem.done{background:var(--good-soft);color:var(--good)}
-.mem .mpic{font-size:2rem}
+.mem .mpic{font-size:1.8rem}
+.mem{font-size:clamp(.8rem,1.9vw,1.05rem)}
 
 /* results / words */
 .res-list{list-style:none;padding:0;margin:14px 0 18px;display:grid;gap:8px}
@@ -559,6 +600,8 @@ if (canSpeak) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschang
 
 const MASCOT = "<svg class=\"mascot\" viewBox=\"0 0 130 130\" aria-hidden=\"true\"><ellipse cx=\"62\" cy=\"122\" rx=\"40\" ry=\"5\" fill=\"#1B2445\" opacity=\".12\"/><path d=\"M98 66 q20 -10 22 -30\" fill=\"none\" stroke=\"#1B2445\" stroke-width=\"9\" stroke-linecap=\"round\"/><path d=\"M98 66 q20 -10 22 -30\" fill=\"none\" stroke=\"#A487F0\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"120\" cy=\"33\" r=\"7\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"3\"/><rect x=\"24\" y=\"14\" width=\"76\" height=\"102\" rx=\"14\" fill=\"#A487F0\" stroke=\"#1B2445\" stroke-width=\"4\"/><rect x=\"34\" y=\"14\" width=\"66\" height=\"102\" rx=\"12\" fill=\"none\"/><rect x=\"40\" y=\"28\" width=\"46\" height=\"20\" rx=\"6\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"3\"/><text x=\"63\" y=\"43\" text-anchor=\"middle\" font-family=\"Fredoka,ui-rounded,sans-serif\" font-weight=\"700\" font-size=\"13\" fill=\"#1B2445\">ABC</text><rect x=\"17\" y=\"24\" width=\"14\" height=\"7\" rx=\"3.5\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"2.6\"/><rect x=\"17\" y=\"42\" width=\"14\" height=\"7\" rx=\"3.5\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"2.6\"/><rect x=\"17\" y=\"60\" width=\"14\" height=\"7\" rx=\"3.5\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"2.6\"/><rect x=\"17\" y=\"78\" width=\"14\" height=\"7\" rx=\"3.5\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"2.6\"/><rect x=\"17\" y=\"96\" width=\"14\" height=\"7\" rx=\"3.5\" fill=\"#FFF9EC\" stroke=\"#1B2445\" stroke-width=\"2.6\"/><ellipse cx=\"51.45\" cy=\"74\" rx=\"3.7800000000000002\" ry=\"4.83\" fill=\"#1B2445\"/><ellipse cx=\"74.55\" cy=\"74\" rx=\"3.7800000000000002\" ry=\"4.83\" fill=\"#1B2445\"/><circle cx=\"52.5\" cy=\"72.32\" r=\"1.26\" fill=\"#fff\"/><circle cx=\"75.6\" cy=\"72.32\" r=\"1.26\" fill=\"#fff\"/><path d=\"M57.75 81.35 q5.25 5.25 10.5 0\" fill=\"none\" stroke=\"#1B2445\" stroke-width=\"2.7300000000000004\" stroke-linecap=\"round\"/><ellipse cx=\"43.05\" cy=\"81.35\" rx=\"4.83\" ry=\"2.94\" fill=\"#F7A5B6\"/><ellipse cx=\"82.95\" cy=\"81.35\" rx=\"4.83\" ry=\"2.94\" fill=\"#F7A5B6\"/></svg>";
 const IC = {
+  snd:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
+  mute:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6"/></svg>',
   speaker:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
   flash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="14" height="13" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v11"/></svg>',
   quiz:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" fill="currentColor"/></svg>',
@@ -662,12 +705,15 @@ function renderBar(mode){
   let h = `<button class="brand" id="bHome" aria-label="Start">Vokabel<span class="ten">Zehner</span></button><span class="spacer"></span>`;
   if (mode === "student"){
     h += `<span class="who">${esc(cur)}</span><span class="timer" id="timer">--:--</span><span class="sync ok" id="sync">✓ gespeichert</span>
+      <button class="btn ghost sm snd" id="bSnd" type="button" aria-pressed="${soundOn}" aria-label="Soundeffekte an oder aus">${soundOn ? IC.snd : IC.mute}</button>
       <button class="btn ghost sm" id="bWords">Meine Wörter</button><button class="btn ghost sm" id="bOut">Abmelden</button>`;
   } else if (mode === "teacher"){
     h += `<span class="who">Lehrerbereich</span><button class="btn ghost sm" id="bOut">Schließen</button>`;
   }
   bar.innerHTML = h;
   $("#bHome").onclick = () => { if (mode==="student"){ stopGame(); showHome(); } else if (mode!=="teacher") showLogin(); };
+  if ($("#bSnd")) $("#bSnd").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("vz_sound", soundOn ? "on" : "off"); } catch(e){}
+    $("#bSnd").innerHTML = soundOn ? IC.snd : IC.mute; $("#bSnd").setAttribute("aria-pressed", soundOn); if (soundOn) sfx("tick"); };
   if ($("#bWords")) $("#bWords").onclick = () => { stopGame(); showWords("all"); };
   if ($("#bOut")) $("#bOut").onclick = mode==="teacher" ? showLogin : logout;
   if (mode==="student") tick();
@@ -843,15 +889,66 @@ function noWords(){ const b = shell("Hoppla"); b.innerHTML = `<p class="note">F�
 function finish(title, res, again, mastBefore){
   const ok = res.filter(r=>r.ok).length;
   const fresh = sess.mastered.slice(mastBefore);
+  const allOk = res.length && ok === res.length;
+  if (ok * 2 >= res.length) sfx("win");
+  if (allOk) setTimeout(() => confetti(null, 40), 150);
   $("#dots").innerHTML = ""; $("#gcount").textContent = "";
   $("#gb").innerHTML = `<div class="card" style="max-width:560px;margin:0 auto">
-    <p class="eyebrow">${title} · Runde fertig</p><h2>${ok} von ${res.length} richtig</h2>
+    <p class="eyebrow">${title} · Runde fertig</p><h2>${allOk ? "Perfect! " : ok * 2 >= res.length ? "Well done! " : "Keep going! "}${ok} von ${res.length} richtig</h2>
     ${fresh.length ? `<p class="note" style="margin-top:12px">⭐ Neu gekonnt: <b>${fresh.map(w=>esc(firstEn(w))).join(", ")}</b></p>` : ""}
     <ul class="res-list">${res.map(r => `<li class="${r.ok?"ok":"no"}"><span class="mk">${r.ok?"✓":"✗"}</span><b>${esc(showEn(r.w))}</b><span class="muted">${esc(r.w.de)}</span></li>`).join("")}</ul>
     <div class="row"><button class="btn" id="again">Nochmal</button><button class="btn ghost" id="other">Anderes Spiel</button></div></div>`;
   $("#again").onclick = again; $("#other").onclick = showHome;
 }
 const sayBtn = (id="sayEn") => canSpeak ? `<button class="say" id="${id}" type="button">${IC.speaker}Anhören</button>` : "";
+
+/* ---------- Soundeffekte (werden live erzeugt, keine Dateien) und Bildeffekte ---------- */
+let soundOn = (() => { try { return localStorage.getItem("vz_sound") !== "off"; } catch(e){ return true; } })();
+function sfx(name){
+  if (!soundOn) return;
+  unlockAudio(); if (!actx) return;
+  try {
+    const t = actx.currentTime + 0.01, out = actx.createGain(); out.gain.value = 0.32; out.connect(actx.destination);
+    const tone = (f, s, d, type, vol, to) => { const o = actx.createOscillator(), g = actx.createGain(); o.type = type || "sine";
+      o.frequency.setValueAtTime(f, t + s); if (to) o.frequency.exponentialRampToValueAtTime(to, t + s + d);
+      g.gain.setValueAtTime(0.0001, t + s); g.gain.exponentialRampToValueAtTime(vol || .6, t + s + .012); g.gain.exponentialRampToValueAtTime(0.0001, t + s + d);
+      o.connect(g); g.connect(out); o.start(t + s); o.stop(t + s + d + .05); };
+    const noise = (s, d, vol, freq, q, to) => { const n = Math.floor(actx.sampleRate * d), buf = actx.createBuffer(1, n, actx.sampleRate), ch = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+      const src = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain(); src.buffer = buf;
+      f.type = "bandpass"; f.frequency.setValueAtTime(freq, t + s); if (to) f.frequency.exponentialRampToValueAtTime(to, t + s + d); f.Q.value = q || 1; g.gain.value = vol;
+      src.connect(f); f.connect(g); g.connect(out); src.start(t + s); };
+    switch (name){
+      case "flip":  noise(0, .22, 1.6, 600, .9, 3200); break;                                   /* Wusch */
+      case "right": tone(784, 0, .13, "triangle", .7); tone(1175, .09, .3, "triangle", .7); break;  /* Ding-Ding */
+      case "wrong": tone(196, 0, .16, "square", .22, 175); tone(147, .15, .32, "square", .22, 110); break; /* Bwomp */
+      case "tick":  tone(1400, 0, .05, "triangle", .45); break;
+      case "buzz":  tone(150, 0, .2, "sawtooth", .16, 120); break;
+      case "pop":   noise(0, .14, 3, 1400, .7); tone(1000, 0, .07, "sine", .45, 260); break;   /* Plopp */
+      case "match": tone(660, 0, .11, "triangle", .6); tone(990, .08, .22, "triangle", .6); break;
+      case "spark": [1568, 1976, 2349, 3136].forEach((f, i) => tone(f, i * .05, .2, "sine", .3)); break;
+      case "win":   [523, 659, 784, 1047].forEach((f, i) => tone(f, i * .09, .2, "triangle", .55)); tone(1319, .38, .45, "triangle", .5); break;
+    }
+  } catch(e){}
+}
+const PRAISE = ["Correct!", "Great job!", "Well done!", "Super!", "Awesome!", "Yes!"];
+const praise = () => PRAISE[Math.random() * PRAISE.length | 0];
+function centerOf(el){ const r = el ? el.getBoundingClientRect() : {left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0}; return [r.left + r.width / 2, r.top + r.height / 2]; }
+function confetti(el, n){
+  const [cx, cy] = centerOf(el), layer = document.createElement("div"); layer.className = "fx"; document.body.appendChild(layer);
+  for (let i = 0; i < (n || 18); i++){
+    const s = document.createElement("i"), a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 110;
+    s.className = "conf"; s.style.cssText = `left:${cx}px;top:${cy}px;--dx:${(Math.cos(a) * d).toFixed(0)}px;--dy:${(Math.sin(a) * d - 50).toFixed(0)}px;--r:${Math.random() * 540 | 0}deg;background:${BALLOON_COLORS[i % 6]}`;
+    layer.appendChild(s);
+  }
+  setTimeout(() => layer.remove(), 1100);
+}
+function burst(el, text, kind){
+  const [cx, cy] = centerOf(el), layer = document.createElement("div"); layer.className = "fx"; document.body.appendChild(layer);
+  const s = document.createElement("span"); s.className = "burst " + (kind || "good"); s.textContent = text; s.style.left = cx + "px"; s.style.top = cy + "px";
+  layer.appendChild(s); setTimeout(() => layer.remove(), 1100);
+}
+const BALLOON_COLORS = ["#FF8E78","#FFCD45","#8FE5C9","#A487F0","#7CC4FF","#F7A5B6"];
 
 /* 1 · Karteikarten */
 function gFlash(){
@@ -860,17 +957,20 @@ function gFlash(){
   const step = () => {
     if (i >= list.length) return finish("Karteikarten", res, gFlash, m0);
     const w = list[i]; dots(res, list.length);
-    b.innerHTML = `<div class="flip" id="card" role="button" tabindex="0" aria-label="Karte umdrehen">${promptHTML(w)}<p class="hint">Weißt du das englische Wort? Sag es leise – dann tippe auf die Karte.</p></div>
+    b.innerHTML = `<div class="flip-wrap"><div class="flip" id="card" role="button" tabindex="0" aria-label="Karte umdrehen">${promptHTML(w)}<p class="hint">Weißt du das englische Wort? Sag es leise – dann tippe auf die Karte.</p></div></div>
       <div class="row center" id="acts"><button class="btn" id="turn">Umdrehen</button></div>`;
     const reveal = () => {
-      const c = $("#card"); if (c.classList.contains("open")) return;
-      c.classList.add("open"); c.removeAttribute("role");
-      c.innerHTML = `${w.emoji?`<span class="pic">${pic(w)}</span>`:""}<p class="muted">${esc(w.de)}</p><p class="en">${esc(showEn(w))}</p>${sayBtn()}`;
-      sayWord(w);
-      if ($("#sayEn")) $("#sayEn").onclick = e => { e.stopPropagation(); sayWord(w); };
-      $("#acts").innerHTML = `<button class="btn good" id="yes">✓ Gewusst</button><button class="btn bad" id="no">✗ Noch nicht</button>`;
-      $("#yes").onclick = () => { record(w, true, false); res.push({w, ok:true}); i++; step(); };
-      $("#no").onclick  = () => { record(w, false, false); res.push({w, ok:false}); i++; step(); };
+      const c = $("#card"); if (c.classList.contains("open") || c.classList.contains("turning")) return;
+      sfx("flip"); c.classList.add("turning");
+      setTimeout(() => {
+        c.classList.remove("turning"); c.classList.add("open"); c.removeAttribute("role");
+        c.innerHTML = `${w.emoji?`<span class="pic">${pic(w)}</span>`:""}<p class="muted">${esc(w.de)}</p><p class="en">${esc(showEn(w))}</p>${sayBtn()}`;
+        sayWord(w);
+        if ($("#sayEn")) $("#sayEn").onclick = e => { e.stopPropagation(); sayWord(w); };
+        $("#acts").innerHTML = `<button class="btn good" id="yes">✓ Gewusst</button><button class="btn bad" id="no">✗ Noch nicht</button>`;
+        $("#yes").onclick = () => { sfx("right"); record(w, true, false); res.push({w, ok:true}); i++; step(); };
+        $("#no").onclick  = () => { record(w, false, false); res.push({w, ok:false}); i++; step(); };
+      }, 180);
     };
     $("#card").onclick = reveal; $("#turn").onclick = reveal;
     $("#card").onkeydown = e => { if (e.key==="Enter"||e.key===" "){ e.preventDefault(); reveal(); } };
@@ -895,10 +995,11 @@ function gQuiz(){
       b.querySelectorAll(".opt").forEach(o => { if (o.dataset.k === w.key) o.classList.add("right"); });
       if (!ok) btn.classList.add("wrong");
       record(w, ok, false); res.push({w, ok});
-      sayWord(w);
-      $("#fb").className = "fb " + (ok ? "good" : "bad");
-      $("#fb").textContent = ok ? "Richtig!" : `${w.de} heißt „${showEn(w)}“.`;
-      later(() => { i++; step(); }, ok ? 900 : 2000);
+      if (ok){ sfx("right"); confetti(btn, 14); } else sfx("wrong");
+      later(() => sayWord(w), 350);
+      $("#fb").className = "fb big " + (ok ? "good" : "bad");
+      $("#fb").innerHTML = ok ? esc(praise()) : `Oops! <span class="muted">${esc(w.de)} =</span> ${esc(showEn(w))}`;
+      later(() => { i++; step(); }, ok ? 1200 : 2300);
     });
   };
   step();
@@ -928,19 +1029,24 @@ function gSpell(){
     b.querySelectorAll(".lt").forEach(t => t.onclick = () => {
       if (pos >= need.length) return;
       if (t.textContent.toLowerCase() === need[pos].c.toLowerCase()){
-        slots[pos].textContent = need[pos].c; slots[pos].classList.add("filled");
+        sfx("tick");
+        const sl = slots[pos]; sl.textContent = need[pos].c; sl.classList.add("filled", "bounce");
         t.classList.add("used"); b.querySelectorAll(".lt.glow").forEach(x=>x.classList.remove("glow"));
         pos++; wrongHere = 0; mark();
         if (pos >= need.length){
           const ok = mistakes === 0;
-          record(w, ok, false); res.push({w, ok}); sayWord(w);
-          $("#fb").className = "fb " + (ok ? "good" : "bad");
-          $("#fb").textContent = ok ? "Perfekt buchstabiert!" : "Geschafft – beim nächsten Mal ohne Fehler!";
-          later(() => { i++; step(); }, 1300);
+          record(w, ok, false); res.push({w, ok});
+          $("#slots").classList.add(ok ? "won" : "done");
+          if (ok){ sfx("win"); confetti($("#slots"), 26); } else sfx("match");
+          later(() => sayWord(w), 450);
+          $("#fb").className = "fb big " + (ok ? "good" : "");
+          $("#fb").textContent = ok ? "Perfect!" : "Good try! Next time without mistakes.";
+          later(() => { i++; step(); }, 1600);
         }
       } else {
-        mistakes++; wrongHere++;
-        t.classList.remove("shake"); void t.offsetWidth; t.classList.add("shake");
+        mistakes++; wrongHere++; sfx("buzz");
+        t.classList.remove("shake"); void t.offsetWidth; t.classList.add("shake", "bad-flash");
+        setTimeout(() => t.classList.remove("bad-flash"), 400);
         if (wrongHere >= 2) glow();
       }
     });
@@ -978,10 +1084,10 @@ function gWrite(mode){
     }
     ans.focus();
     const wrong = (near) => {
-      record(w, false, true); res.push({w, ok:false}); phase = "copy";
+      record(w, false, true); res.push({w, ok:false}); phase = "copy"; sfx("wrong");
       fb.className = "fb bad";
-      fb.innerHTML = `${near ? "Fast! Ein Buchstabe stimmt nicht." : "Leider nicht."} Richtig ist:<span class="sol">${esc(showEn(w))}</span><span class="muted small">Schreib es jetzt einmal richtig ab.</span>`;
-      ans.value = ""; ans.focus(); sayWord(w);
+      fb.innerHTML = `${near ? "Almost! Ein Buchstabe stimmt nicht." : "Oops!"} Richtig ist:<span class="sol">${esc(showEn(w))}</span><span class="muted small">Schreib es jetzt einmal richtig ab.</span>`;
+      ans.value = ""; ans.focus(); later(() => sayWord(w), 400);
       $("#dunno").hidden = true;
     };
     $("#f").onsubmit = e => {
@@ -992,17 +1098,17 @@ function gWrite(mode){
         if (accept(v, w.en)){
           const wasReview = isReview(w);
           record(w, true, true); res.push({w, ok:true}); phase = "done";
-          ans.classList.add("ok"); ans.readOnly = true;
-          fb.className = "fb good"; fb.textContent = wasReview ? "Richtig – sitzt noch!" : "Richtig!";
-          sayWord(w);
-          later(() => { i++; step(); }, 1000);
+          ans.classList.add("ok"); ans.readOnly = true; sfx("right"); confetti(ans, 14);
+          fb.className = "fb big good"; fb.textContent = wasReview ? "Correct! Still remembered!" : praise();
+          later(() => sayWord(w), 350);
+          later(() => { i++; step(); }, 1200);
         } else wrong(nearMiss(v, w.en));
       } else if (phase === "copy"){
         if (accept(v, w.en)){
-          phase = "done"; ans.classList.add("ok"); ans.readOnly = true;
-          fb.className = "fb good"; fb.textContent = "Gut abgeschrieben! Weiter geht’s.";
+          phase = "done"; ans.classList.add("ok"); ans.readOnly = true; sfx("match");
+          fb.className = "fb good"; fb.textContent = "Good! Weiter geht’s.";
           later(() => { i++; step(); }, 800);
-        } else { ans.classList.remove("shake"); void ans.offsetWidth; ans.classList.add("shake"); }
+        } else { sfx("buzz"); ans.classList.remove("shake"); void ans.offsetWidth; ans.classList.add("shake"); }
       }
     };
     $("#dunno").onclick = () => { if (phase === "answer") wrong(false); };
@@ -1010,109 +1116,82 @@ function gWrite(mode){
   step(true);
 }
 
-/* 6 · Torchlight */
+/* 6 · Torchlight: Nachtsuche mit Taschenlampe. Wörter schweben, Ablenkwörter, Batterie wird leer */
+const MOON = '<svg class="t-moon" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" fill="#FFF0C4" stroke="#1B2445" stroke-width="3"/><circle cx="52" cy="26" r="5" fill="#F3DDA0"/><circle cx="28" cy="55" r="4" fill="#F3DDA0"/><ellipse cx="31" cy="40" rx="2.6" ry="3.4" fill="#1B2445"/><ellipse cx="47" cy="40" rx="2.6" ry="3.4" fill="#1B2445"/><path d="M35 47 q4 4 8 0" fill="none" stroke="#1B2445" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="24" cy="46" rx="4" ry="2.4" fill="#F7A5B6"/><ellipse cx="54" cy="46" rx="4" ry="2.4" fill="#F7A5B6"/></svg>';
 function gTorch(){
   const list = pick(6); if (list.length < 3) return noWords();
+  const decoys = shuffle(words(true).filter(x => !list.some(y => y.key === x.key))).slice(0, 3);
+  const all = shuffle(list.concat(decoys));
   const b = shell("Torchlight"), res = [], m0 = sess.mastered.length;
-  const order = shuffle(list); let r = 0, mistake = false;
-  const cells = shuffle(list.map((_, k) => k));
-  b.innerHTML = `<p class="torch-task" id="task" aria-live="polite"></p>
+  const order = shuffle(list); let r = 0, mistake = false, battery = 100, over = false;
+  const cells = shuffle(all.map((_, k) => k)), rows = Math.ceil(all.length / 3);
+  b.innerHTML = `<div class="torch-top"><p class="torch-task" id="task" aria-live="polite"></p>
+      <div class="battery" aria-label="Batterie"><span class="b-cap"></span><span class="b-fill" id="bfill"></span><span class="b-pct" id="bpct">100%</span></div></div>
     <div class="torch" id="board">
-      ${list.map((w, k) => { const c = cells[k], col = c % 3, row = Math.floor(c / 3);
-        const x = (col + 0.22 + Math.random()*0.56) / 3 * 100, y = (row + 0.25 + Math.random()*0.5) / 2 * 100, rot = (Math.random()*14-7).toFixed(1);
-        return `<button class="t-word" data-k="${esc(w.key)}" style="left:${x}%;top:${y}%;--rot:${rot}deg">${esc(firstEn(w))}</button>`; }).join("")}
+      <span class="stars-sky"></span>${MOON}
+      ${all.map((w, k) => { const c = cells[k], col = c % 3, row = Math.floor(c / 3);
+        const x = (col + 0.24 + Math.random()*0.52) / 3 * 100, y = (row + 0.3 + Math.random()*0.4) / rows * 100, rot = (Math.random()*14-7).toFixed(1);
+        const mx = (Math.random()*36-18).toFixed(0), my = (Math.random()*28-14).toFixed(0), d = (5 + Math.random()*4).toFixed(1);
+        return `<button class="t-word" data-k="${esc(w.key)}" style="left:${x}%;top:${y}%;--rot:${rot}deg;--mx:${mx}px;--my:${my}px;--d:${d}s">${esc(firstEn(w))}</button>`; }).join("")}
       <div class="t-dark" id="dark"></div></div>
-    <p class="muted center small" style="margin-top:10px">Zieh den Finger über das Bild – die Taschenlampe zeigt die Wörter. Dann tippe auf das richtige.</p>`;
+    <p class="muted center small" style="margin-top:10px">Zieh den Finger über das Bild – die Taschenlampe zeigt die Wörter. Schnell sein: Die Batterie wird leer! Jedes gefundene Wort lädt sie ein bisschen auf.</p>`;
   const board = $("#board"), dark = $("#dark");
   const light = (cx, cy) => { const rc = board.getBoundingClientRect(); dark.style.setProperty("--x", (cx-rc.left)+"px"); dark.style.setProperty("--y", (cy-rc.top)+"px"); };
   board.addEventListener("pointermove", e => light(e.clientX, e.clientY));
   board.addEventListener("pointerdown", e => light(e.clientX, e.clientY));
+  const showBattery = () => {
+    const v = Math.max(0, battery);
+    $("#bfill").style.width = v + "%"; $("#bpct").textContent = Math.round(v) + "%";
+    $("#bfill").className = "b-fill" + (v < 25 ? " low" : v < 50 ? " mid" : "");
+    dark.style.setProperty("--rad", (62 + v * 0.55).toFixed(0) + "px");
+  };
   const task = () => { const w = order[r]; dots(res, order.length);
     $("#task").innerHTML = `Finde: ${w.emoji?`<span class="tpic">${pic(w)}</span> `:""}<b>${esc(w.de)}</b>`; };
+  const t0 = gtok;
+  const drain = setInterval(() => {
+    if (t0 !== gtok || over){ clearInterval(drain); return; }
+    battery -= 0.55; showBattery();
+    if (battery <= 0){
+      over = true; clearInterval(drain); sfx("wrong"); board.classList.add("empty");
+      for (let k = r; k < order.length; k++) res.push({w: order[k], ok:false});   /* nicht gefunden – zählt nicht als Fehler im Lernstand */
+      $("#task").innerHTML = `<b>Battery empty!</b> Die Lampe ist aus.`;
+      later(() => finish("Torchlight", res, gTorch, m0), 1800);
+    }
+  }, 300);
   b.querySelectorAll(".t-word").forEach(btn => {
     btn.addEventListener("focus", () => { const rc = btn.getBoundingClientRect(); light(rc.left+rc.width/2, rc.top+rc.height/2); });
     btn.onclick = () => {
-      if (r >= order.length || btn.classList.contains("found")) return;
+      if (over || r >= order.length || btn.classList.contains("found")) return;
       const w = order[r];
       if (btn.dataset.k === w.key){
-        btn.classList.add("found"); sayWord(w);
+        btn.classList.add("found"); sfx("spark"); burst(btn, mistake ? "Found it!" : praise()); later(() => sayWord(w), 300);
         record(w, !mistake, false, true); res.push({w, ok:!mistake});
+        battery = Math.min(100, battery + 8); showBattery();
         r++; mistake = false;
-        if (r >= order.length) later(() => finish("Torchlight", res, gTorch, m0), 1100); else task();
+        if (r >= order.length){ over = true; clearInterval(drain); confetti(board, 30); later(() => finish("Torchlight", res, gTorch, m0), 1300); } else task();
       } else {
-        mistake = true; btn.classList.add("nope"); setTimeout(() => btn.classList.remove("nope"), 600);
+        mistake = true; sfx("buzz"); battery -= 6; showBattery();
+        btn.classList.add("nope"); setTimeout(() => btn.classList.remove("nope"), 600);
       }
     };
   });
-  task();
+  showBattery(); task();
 }
 
-/* 7 · Memory */
-/* 8 · Ballon-Platzen: vier Ballons steigen auf, der richtige muss angetippt werden, bevor er oben verschwindet */
-const BALLOON_COLORS = ["#FF8E78","#FFCD45","#8FE5C9","#A487F0","#7CC4FF","#F7A5B6"];
-function gBalloon(){
-  const list = pick(8); if (!list.length) return noWords();
-  const pool = words().length >= 4 ? words() : words(true);
-  if (pool.length < 3) return noWords();
-  const b = shell("Ballon-Platzen"), res = [], m0 = sess.mastered.length; let i = 0;
-  const step = () => {
-    if (i >= list.length) return finish("Ballon-Platzen", res, gBalloon, m0);
-    const w = list[i]; dots(res, list.length);
-    const opts = shuffle([w, ...shuffle(pool.filter(x => x.key !== w.key)).slice(0, 3)]);
-    const lanes = shuffle([0, 1, 2, 3]), colors = shuffle(BALLOON_COLORS);
-    const base = Math.max(6.5, 9 - i * 0.25);           /* wird langsam ein bisschen schneller */
-    b.innerHTML = `${promptHTML(w)}
-      <div class="sky-area" id="sky">
-        <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
-        ${opts.map((o, k) => {
-          const lane = lanes[k], delay = [0, 0.7, 1.4, 0.35][k], dur = base + [0, 0.8, -0.4, 1.2][k];
-          return `<button class="balloon" type="button" data-k="${esc(o.key)}" style="left:${12.5 + lane * 25}%;--c:${colors[k]};--dur:${dur.toFixed(2)}s;--delay:${delay}s">
-            <span class="b-body"><span class="b-txt">${esc(firstEn(o))}</span></span><span class="b-knot"></span><span class="b-string"></span></button>`;
-        }).join("")}
-      </div>
-      <div class="fb" id="fb" aria-live="polite"></div>`;
-    const t = gtok;
-    let done = false, mistake = false;
-    const end = (ok, msg) => {
-      if (done) return; done = true;
-      record(w, ok, false); res.push({w, ok});
-      sayWord(w);
-      b.querySelectorAll(".balloon").forEach(x => { if (x.dataset.k !== w.key) x.classList.add("gone"); });
-      $("#fb").className = "fb " + (ok ? "good" : "bad"); $("#fb").textContent = msg;
-      later(() => { i++; step(); }, ok ? 1100 : 2200);
-    };
-    b.querySelectorAll(".balloon").forEach(btn => {
-      btn.onclick = () => {
-        if (done || btn.classList.contains("miss")) return;
-        if (btn.dataset.k === w.key){
-          btn.classList.add("popped");
-          end(!mistake, mistake ? `Geschafft! ${w.de} heißt „${showEn(w)}“.` : "Peng! Richtig!");
-        } else {
-          mistake = true; btn.classList.add("miss");
-        }
-      };
-      if (btn.dataset.k === w.key) btn.addEventListener("animationend", e => {
-        if (e.animationName !== "rise" || t !== gtok || done) return;
-        btn.classList.add("escaped");
-        end(false, `Davongeflogen! ${w.de} heißt „${showEn(w)}“.`);
-      });
-    });
-  };
-  step();
-}
-
+/* 7 · Memory: 10 Paare */
 function gMemory(){
-  const list = pick(6); if (list.length < 3) return noWords();
+  const list = pick(10); if (list.length < 3) return noWords();
   const b = shell("Memory"), res = [], m0 = sess.mastered.length;
   const cards = shuffle(list.flatMap(w => [{w, side:"de"}, {w, side:"en"}]));
   let open = [], lock = false, moves = 0, found = 0;
-  b.innerHTML = `<p class="center muted" style="margin-bottom:14px">Finde zu jedem deutschen Wort das englische.</p>
+  b.innerHTML = `<p class="center muted" style="margin-bottom:14px">Finde zu jedem deutschen Wort das englische. ${list.length} Paare!</p>
     <div class="mem-grid">${cards.map((c, k) => `<button class="mem" data-i="${k}" aria-label="Karte ${k+1}"></button>`).join("")}</div>`;
   $("#dots").innerHTML = ""; const cnt = () => $("#gcount").textContent = `Züge: ${moves}`; cnt();
   const face = c => c.side === "de" ? `${c.w.emoji?`<span class="mpic">${pic(c.w)}</span>`:""}<span>${esc(c.w.de)}</span>` : `<span>${esc(firstEn(c.w))}</span>`;
   b.querySelectorAll(".mem").forEach(el => el.onclick = () => {
     const c = cards[+el.dataset.i];
     if (lock || el.classList.contains("up") || el.classList.contains("done")) return;
+    sfx("tick");
     el.classList.add("up"); if (c.side === "en") el.classList.add("en-side"); el.innerHTML = face(c);
     if (c.side === "en") sayWord(c.w);
     open.push(el);
@@ -1121,19 +1200,74 @@ function gMemory(){
       const [a, z] = open.map(o => cards[+o.dataset.i]);
       if (a.w.key === z.w.key){
         open.forEach(o => { o.classList.add("done"); o.setAttribute("aria-label", "gefunden"); });
+        sfx("match"); burst(open[1], praise());
         record(a.w, true, false); res.push({w:a.w, ok:true}); found++; open = [];
-        if (found === list.length) later(() => finish("Memory", res, gMemory, m0), 900);
+        if (found === list.length){ confetti(null, 34); later(() => finish("Memory", res, gMemory, m0), 1000); }
       } else {
         lock = true;
-        later(() => { open.forEach(o => { o.classList.remove("up","en-side"); o.innerHTML = ""; }); open = []; lock = false; }, 1100);
+        later(() => { sfx("buzz"); open.forEach(o => { o.classList.remove("up","en-side"); o.innerHTML = ""; }); open = []; lock = false; }, 1100);
       }
     }
   });
 }
 
+/* 8 · Ballon-Platzen: sechs Ballons steigen auf, der richtige muss angetippt werden, bevor er oben verschwindet */
+function gBalloon(){
+  const list = pick(8); if (!list.length) return noWords();
+  const pool = words().length >= 6 ? words() : words(true);
+  if (pool.length < 3) return noWords();
+  const b = shell("Ballon-Platzen"), res = [], m0 = sess.mastered.length; let i = 0;
+  const step = () => {
+    if (i >= list.length) return finish("Ballon-Platzen", res, gBalloon, m0);
+    const w = list[i]; dots(res, list.length);
+    const opts = shuffle([w, ...shuffle(pool.filter(x => x.key !== w.key)).slice(0, 5)]), n = opts.length;
+    const lanes = shuffle(opts.map((_, k) => k)), colors = shuffle(BALLOON_COLORS);
+    const base = Math.max(6, 8.5 - i * 0.3);                       /* wird von Wort zu Wort schneller */
+    const delays = [0, 0.6, 1.2, 0.3, 0.9, 1.5], extra = [0, 0.8, -0.4, 1.1, 0.4, -0.2];
+    b.innerHTML = `<div class="big-prompt">${promptHTML(w)}</div>
+      <div class="sky-area" id="sky">
+        <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+        ${opts.map((o, k) => `<button class="balloon" type="button" data-k="${esc(o.key)}" style="left:${((lanes[k] + 0.5) * 100 / n).toFixed(1)}%;width:min(${(92 / n).toFixed(1)}%,135px);--c:${colors[k % 6]};--dur:${(base + extra[k]).toFixed(2)}s;--delay:${delays[k]}s">
+            <span class="b-body"><span class="b-txt">${esc(firstEn(o))}</span></span><span class="b-knot"></span><span class="b-string"></span></button>`).join("")}
+      </div>
+      <div class="fb" id="fb" aria-live="polite"></div>`;
+    const t = gtok;
+    let done = false, mistake = false;
+    const end = (ok, msg) => {
+      if (done) return; done = true;
+      record(w, ok, false); res.push({w, ok});
+      later(() => sayWord(w), 350);
+      b.querySelectorAll(".balloon").forEach(x => { if (x.dataset.k !== w.key) x.classList.add("gone"); });
+      $("#fb").className = "fb big " + (ok ? "good" : "bad"); $("#fb").innerHTML = msg;
+      later(() => { i++; step(); }, ok ? 1300 : 2400);
+    };
+    b.querySelectorAll(".balloon").forEach(btn => {
+      btn.onclick = () => {
+        if (done || btn.classList.contains("miss")) return;
+        const body = btn.querySelector(".b-body");
+        if (btn.dataset.k === w.key){
+          sfx("pop"); setTimeout(() => sfx("right"), 90);
+          burst(body, mistake ? "Found it!" : "Correct!"); confetti(body, 20);
+          btn.classList.add("popped");
+          end(!mistake, mistake ? `Good! <span class="muted">${esc(w.de)} =</span> ${esc(showEn(w))}` : esc(praise()));
+        } else {
+          mistake = true; sfx("pop"); setTimeout(() => sfx("buzz"), 80);
+          burst(body, "Oops!", "bad"); btn.classList.add("miss");
+        }
+      };
+      if (btn.dataset.k === w.key) btn.addEventListener("animationend", e => {
+        if (e.animationName !== "rise" || t !== gtok || done) return;
+        btn.classList.add("escaped"); sfx("wrong");
+        end(false, `Bye bye! <span class="muted">${esc(w.de)} =</span> ${esc(showEn(w))}`);
+      });
+    });
+  };
+  step();
+}
+
 /* ---------- 10 Minuten um ---------- */
 function timeUp(){
-  flush();
+  flush(); sfx("win"); setTimeout(() => confetti(null, 40), 200);
   const nm = sess.mastered.length;
   overlay.innerHTML = `<div class="modal card" role="dialog" aria-modal="true" aria-labelledby="tuH">
     <p class="eyebrow">${cfg.minutes} Minuten geschafft</p><h2 id="tuH">Super gemacht, ${esc(cur)}!</h2>
