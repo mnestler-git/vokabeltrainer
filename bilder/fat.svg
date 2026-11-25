@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Bild: dick"><path d="M430 300 Q520 290 500 200 Q495 175 470 185" fill="none" stroke="#2b2b2b" stroke-width="22" stroke-linecap="round"/>
+<path d="M430 300 Q520 290 500 200 Q495 175 470 185" fill="none" stroke="#f4a259" stroke-width="10" stroke-linecap="round"/>
+<circle cx="300" cy="245" r="135" fill="#f4a259" stroke="#2b2b2b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="300" cy="270" rx="75" ry="80" fill="#fbd7a8"/>
+<ellipse cx="235" cy="375" rx="40" ry="18" fill="#f4a259" stroke="#2b2b2b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="365" cy="375" rx="40" ry="18" fill="#f4a259" stroke="#2b2b2b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M240 85 L250 25 L285 65 Z M360 85 L350 25 L315 65 Z" fill="#f4a259" stroke="#2b2b2b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="300" cy="105" r="68" fill="#f4a259" stroke="#2b2b2b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="275" cy="95" r="7" fill="#2b2b2b"/><circle cx="325" cy="95" r="7" fill="#2b2b2b"/>
+<path d="M292 115 L308 115 L300 124 Z" fill="#e57a92" stroke="#2b2b2b" stroke-width="3" stroke-linejoin="round"/>
+<path d="M290 133 Q300 140 310 133" fill="none" stroke="#2b2b2b" stroke-width="4" stroke-linecap="round"/>
+<path d="M265 120 L215 112 M265 128 L215 134 M335 120 L385 112 M335 128 L385 134" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round"/></svg>
